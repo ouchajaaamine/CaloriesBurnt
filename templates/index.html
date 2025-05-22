@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calories Burnt Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/r"><i class="fas fa-fire"></i> Calorie Predictor</a></li>
+            <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Exercise Calorie Burn <span style="color: var(--primary);">Predictor</span></h1>
+            <p>
+                Use machine learning to accurately predict how many calories you'll burn during your workout.
+                Our advanced algorithm takes into account your personal metrics and exercise intensity to give you
+                the most accurate prediction possible.
+            </p>
+            <div>
+                <a href="/r" class="btn"><i class="fas fa-calculator"></i> Calculate Now</a>
+                <a href="/about" class="btn btn-outline"><i class="fas fa-info-circle"></i> Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <div class="container">
+        <div class="card">
+            <h2><i class="fas fa-star"></i> Key Features</h2>
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <h3><i class="fas fa-bolt"></i> Fast Results</h3>
+                    <p>Instant predictions using our trained model</p>
+                </div>
+                <div class="stats-card">
+                    <h3><i class="fas fa-brain"></i> Smart Algorithm</h3>
+                    <p>Uses advanced machine learning techniques</p>
+                </div>
+                <div class="stats-card">
+                    <h3><i class="fas fa-user"></i> Personalized</h3>
+                    <p>Considers your individual body metrics</p>
+                </div>
+                <div class="stats-card">
+                    <h3><i class="fas fa-lock"></i> Secure</h3>
+                    <p>All data stays on your device</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2023 Calorie Burnt Prediction | Powered by Machine Learning</p>
+    </footer>
+</body>
+</html>

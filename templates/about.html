@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Calories Burnt Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/r"><i class="fas fa-fire"></i> Calorie Predictor</a></li>
+            <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="card">
+            <h1><i class="fas fa-info-circle"></i> About This Project</h1>
+            
+            <div style="margin-top: 2rem;">
+                <h2><i class="fas fa-lightbulb"></i> Project Overview</h2>
+                <p style="margin-top: 1rem; line-height: 1.7;">
+                    The Calorie Burnt Prediction project uses machine learning to accurately predict how many calories an individual will burn during exercise.
+                    The prediction model is trained on a dataset of over 15,000 exercise records that include various personal metrics and corresponding calorie burn data.
+                </p>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <h2><i class="fas fa-cogs"></i> How It Works</h2>
+                <p style="margin-top: 1rem; line-height: 1.7;">
+                    Our system uses a Linear Regression model trained on exercise data to make predictions. 
+                    The model takes into account several important factors:
+                </p>
+                <ul style="margin-top: 1rem; margin-left: 1.5rem; line-height: 1.7;">
+                    <li><strong>Personal metrics</strong>: Age, gender, height, and weight</li>
+                    <li><strong>Exercise intensity</strong>: Duration, heart rate, and body temperature</li>
+                </ul>
+                <p style="margin-top: 1rem; line-height: 1.7;">
+                    These factors collectively provide a comprehensive picture of an individual's physical condition and exercise intensity,
+                    allowing for accurate calorie burn predictions.
+                </p>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <h2><i class="fas fa-database"></i> Dataset</h2>
+                <p style="margin-top: 1rem; line-height: 1.7;">
+                    The model is trained on a comprehensive dataset containing exercise records with the following features:
+                </p>
+                <ul style="margin-top: 1rem; margin-left: 1.5rem; line-height: 1.7;">
+                    <li>User ID</li>
+                    <li>Gender</li>
+                    <li>Age</li>
+                    <li>Height</li>
+                    <li>Weight</li>
+                    <li>Duration</li>
+                    <li>Heart Rate</li>
+                    <li>Body Temperature</li>
+                    <li>Calories Burned</li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <h2><i class="fas fa-code"></i> Technologies Used</h2>
+                <div class="stats-grid" style="margin-top: 1rem;">
+                    <div class="stats-card">
+                        <h3>Python</h3>
+                        <p>Core programming language</p>
+                    </div>
+                    <div class="stats-card">
+                        <h3>Flask</h3>
+                        <p>Web application framework</p>
+                    </div>
+                    <div class="stats-card">
+                        <h3>Scikit-learn</h3>
+                        <p>Machine learning library</p>
+                    </div>
+                    <div class="stats-card">
+                        <h3>Pandas</h3>
+                        <p>Data manipulation</p>
+                    </div>
+                    <div class="stats-card">
+                        <h3>NumPy</h3>
+                        <p>Numerical operations</p>
+                    </div>
+                    <div class="stats-card">
+                        <h3>HTML/CSS</h3>
+                        <p>Frontend development</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2023 Calorie Burnt Prediction | Powered by Machine Learning</p>
+    </footer>
+</body>
+</html> 

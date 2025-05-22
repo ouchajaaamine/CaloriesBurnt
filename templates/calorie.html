@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calories Burnt Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/r"><i class="fas fa-fire"></i> Calorie Predictor</a></li>
+            <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="card">
+            <h1><i class="fas fa-fire"></i> Calorie Burnt Prediction</h1>
+            <p>Enter your details below to predict how many calories you'll burn during exercise</p>
+            
+            <form action="/cp" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Age"><i class="fas fa-birthday-cake"></i> Age</label>
+                        <input type="number" class="form-control" id="Age" name="Age" placeholder="Enter your age" min="10" max="99" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Gender"><i class="fas fa-venus-mars"></i> Gender</label>
+                        <select class="form-control" id="Gender" name="Gender" required>
+                            <option value="">Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
+                        <input type="number" class="form-control" id="Height" name="Height" placeholder="Enter your height" min="100" max="250" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Weight"><i class="fas fa-weight"></i> Weight (kg)</label>
+                        <input type="number" class="form-control" id="Weight" name="Weight" placeholder="Enter your weight" min="30" max="200" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Duration"><i class="fas fa-clock"></i> Duration (minutes)</label>
+                        <input type="number" class="form-control" id="Duration" name="Duration" placeholder="Exercise duration" min="1" max="180" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Heart_Rate"><i class="fas fa-heartbeat"></i> Heart Rate (BPM)</label>
+                        <input type="number" class="form-control" id="Heart_Rate" name="Heart_Rate" placeholder="Average heart rate" min="60" max="200" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Body_Temp"><i class="fas fa-thermometer-half"></i> Body Temp (°C)</label>
+                        <input type="number" class="form-control" id="Body_Temp" name="Body_Temp" placeholder="Body temperature" min="36" max="42" step="0.1" required>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button type="submit" class="btn"><i class="fas fa-calculator"></i> Calculate Calories</button>
+                    <button type="reset" class="btn btn-outline"><i class="fas fa-redo"></i> Reset</button>
+                </div>
+            </form>
+            
+            {% if data %}
+            <div class="result-section">
+                <h2><i class="fas fa-fire-alt"></i> Predicted Calories Burnt</h2>
+                <div class="result-value">{{ data }} calories</div>
+                <p>Based on your input parameters</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <h3>Age</h3>
+                    <p>{{ age }} years</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Gender</h3>
+                    <p>{{ gender }}</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Height</h3>
+                    <p>{{ height }} cm</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Weight</h3>
+                    <p>{{ weight }} kg</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Duration</h3>
+                    <p>{{ duration }} min</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Heart Rate</h3>
+                    <p>{{ heart_rate }} BPM</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Body Temperature</h3>
+                    <p>{{ body_temp }}°C</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Avg. for {{ gender }}s</h3>
+                    <p>{{ avg_calories }} cal</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2023 Calorie Burnt Prediction | Powered by Machine Learning</p>
+    </footer>
+
+    <script>
+        // Add animation to the result section when it appears
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultSection = document.querySelector('.result-section');
+            if (resultSection) {
+                resultSection.classList.add('fadeIn');
+            }
+        });
+    </script>
+</body>
+</html>
