@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Fitness Calorie AI</title>
+    <title>About - FitBurner</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -11,6 +11,9 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
         <ul class="nav-links">
             <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="/r"><i class="fas fa-fire"></i> Calorie Predictor</a></li>
@@ -29,7 +32,7 @@
             <div class="about-header-icon">
                 <i class="fas fa-info-circle"></i>
             </div>
-            <h1>About Fitness Calorie AI</h1>
+            <h1>About FitBurner</h1>
             <p class="about-subtitle">Discover how our artificial intelligence technology accurately predicts calories burned during exercise</p>
         </div>
         
@@ -41,7 +44,7 @@
                 <div class="section-content">
                     <h2>Project Overview</h2>
                     <p>
-                        The Fitness Calorie AI project uses machine learning to accurately predict how many calories an individual will burn during exercise.
+                        The FitBurner project uses machine learning to accurately predict how many calories an individual will burn during exercise.
                         Our prediction model is trained on a dataset of over 15,000 exercise records that include various personal metrics and corresponding calorie burn data.
                     </p>
                 </div>
@@ -148,7 +151,7 @@
         <div class="footer-content">
             <div class="footer-logo">
                 <i class="fas fa-fire-alt"></i>
-                <span>Fitness Calorie AI</span>
+                <span>FitBurner</span>
             </div>
             <div class="footer-links">
                 <a href="/"><i class="fas fa-home"></i> Home</a>
@@ -165,11 +168,12 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 Fitness Calorie AI | Powered by AMINE OUCHAJAA</p>
+            <p>© 2025 FitBurner | Powered by AMINE OUCHAJAA</p>
         </div>
     </footer>
 
     <!-- Scripts for Dark Mode -->
     <script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mobile-nav.js') }}"></script>
 </body>
 </html> 

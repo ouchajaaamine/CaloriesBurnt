@@ -1,10 +1,10 @@
-# Fitness Calorie AI: Calories Burned Prediction
+# FitBurner: Calories Burned Prediction
 
-![Fitness Calorie AI](https://i.imgur.com/jQjUYJJ.png)
+![FitBurner](https://i.imgur.com/jQjUYJJ.png)
 
 ## 📋 Overview
 
-Fitness Calorie AI is a web application that uses machine learning to predict calories burned during exercise based on personal metrics. This application allows users to get accurate predictions by entering their demographic information and exercise parameters.
+FitBurner is a web application that uses machine learning to predict calories burned during exercise based on personal metrics. This application allows users to get accurate predictions by entering their demographic information and exercise parameters.
 
 ## ✨ Features
 
@@ -14,6 +14,7 @@ Fitness Calorie AI is a web application that uses machine learning to predict ca
 - **Interactive Charts**: Visual representation of calorie burning patterns across different demographics
 - **Statistical Analysis**: Explore trends and patterns in exercise efficiency
 - **Personalized Tips**: Get actionable recommendations to optimize your exercise routine
+- **AJAX Form Submissions**: Calculate calories without page refreshes for a smoother user experience
 
 ## 🛠️ Technologies Used
 
@@ -34,8 +35,8 @@ The application analyzes several key factors that influence calorie burning:
 
 1. **Clone the repository**
    ```
-   git clone https://github.com/ouchajaaamine/CaloriesBurnt.git
-   cd CaloriesBurnt
+   git clone https://github.com/yourusername/fitburner.git
+   cd fitburner
    ```
 
 2. **Install dependencies**
@@ -64,7 +65,8 @@ The application analyzes several key factors that influence calorie burning:
 ```
 .
 ├── server.py                 # Flask backend server
-├── model.py                  # Machine learning model handler
+├── wsgi.py                   # WSGI entry point for deployment
+├── requirements.txt          # Project dependencies
 ├── templates/                # HTML templates
 │   ├── index.html            # Home page
 │   ├── calorie.html          # Calorie prediction page
@@ -75,10 +77,10 @@ The application analyzes several key factors that influence calorie burning:
 │   │   └── style.css         # Main stylesheet
 │   ├── js/                   # JavaScript files
 │   │   ├── darkmode.js       # Dark mode toggle functionality
-│   │   └── charts.js         # Chart visualizations
-│   └── img/                  # Images and icons
-└── model/                    # Machine learning model and data
-    └── model.pkl             # Trained prediction model
+│   │   ├── charts.js         # Chart visualizations
+│   │   └── mobile-nav.js     # Mobile navigation functionality
+├── exercise.csv              # Exercise dataset
+└── calories.csv              # Calories dataset
 ```
 
 ## 👨‍💻 Author
@@ -91,6 +93,10 @@ The application analyzes several key factors that influence calorie burning:
 - [Facebook](https://www.facebook.com/ouchajaaamine)
 - [Instagram](https://www.instagram.com/amine.uja/)
 
+## 🚀 Deployment
+
+For deployment instructions on PythonAnywhere, please refer to [README_DEPLOY.md](README_DEPLOY.md).
+
 ## 📝 License
 
 This project is open source and available under the [MIT License](LICENSE).
@@ -101,4 +107,4 @@ Special thanks to all contributors who have helped in developing and refining th
 
 ---
 
-© 2025 Fitness Calorie AI | Powered by AMINE OUCHAJAA
+© 2025 FitBurner | Powered by AMINE OUCHAJAA

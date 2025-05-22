@@ -830,6 +830,158 @@ footer {
     }
 }
 
+/* Improved responsive navbar styles */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.75rem 1rem;
+    }
+    
+    .navbar .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .navbar .nav-links li {
+        margin: 0.5rem 0.75rem;
+    }
+    
+    .navbar .nav-links a {
+        font-size: 0.9rem;
+    }
+    
+    .theme-toggle {
+        width: 35px;
+        height: 35px;
+        margin-left: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+    
+    .navbar .nav-links {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .navbar .nav-links li {
+        margin: 0.25rem 0.5rem;
+    }
+    
+    .theme-toggle {
+        margin: 0.5rem 0 0;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-content {
+        padding: 1rem;
+    }
+    
+    .hero-description {
+        font-size: 0.9rem;
+    }
+    
+    .hero-features {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .feature-tag {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .logo-animated {
+        font-size: 3rem;
+    }
+    
+    .hero-cta {
+        gap: 1rem;
+    }
+    
+    .btn-glow, .btn-outline {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Improved statistics page responsiveness */
+@media (max-width: 992px) {
+    .stats-header-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dual-content-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-compact {
+        height: 300px;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-header-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-header-card {
+        padding: 1rem;
+    }
+    
+    .stats-header-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+    
+    .chart-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .chart-section {
+        margin: 2rem 0;
+        padding-bottom: 1rem;
+    }
+    
+    .chart-section h2 {
+        font-size: 1.3rem;
+    }
+    
+    .chart-compact {
+        height: 250px;
+        padding: 1rem;
+    }
+    
+    .chart-insights {
+        grid-template-columns: 1fr;
+    }
+    
+    .insight-item {
+        padding: 1rem;
+    }
+    
+    .stats-insight-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .efficiency-comparison {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tip-item {
+        min-width: 100%;
+    }
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
@@ -2550,4 +2702,269 @@ footer {
 
 [data-theme="light"] .stats-header-info h3 {
     color: #555;
-} 
+}
+
+/* Mobile menu toggle */
+.mobile-menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    margin-right: 1rem;
+}
+
+.mobile-menu-toggle:hover {
+    color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .navbar {
+        justify-content: space-between;
+    }
+    
+    .nav-links {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background: var(--navbar-bg);
+        width: 100%;
+        padding: 1rem 0;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        opacity: 0;
+        z-index: 1000;
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .nav-links li {
+        margin: 0.7rem 1rem;
+    }
+}
+
+/* Make specific chart sections smaller */
+.chart-section h2[data-type="gender-comparison"],
+.chart-section h2[data-type="age-impact"] {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.chart-section[data-type="gender-comparison"] .chart-compact,
+.chart-section[data-type="age-impact"] .chart-compact {
+    height: 230px;
+    padding: 1rem;
+}
+
+.chart-section[data-type="gender-comparison"] .chart-explanation,
+.chart-section[data-type="age-impact"] .chart-explanation {
+    padding: 1rem;
+}
+
+.chart-section[data-type="gender-comparison"] .chart-explanation h3,
+.chart-section[data-type="age-impact"] .chart-explanation h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+.chart-section[data-type="gender-comparison"] .chart-explanation p,
+.chart-section[data-type="age-impact"] .chart-explanation p {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+}
+
+.chart-section[data-type="gender-comparison"] .stat-conclusion,
+.chart-section[data-type="age-impact"] .stat-conclusion {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+}
+
+.chart-section[data-type="gender-comparison"] .key-stat,
+.chart-section[data-type="age-impact"] .key-stat {
+    margin-bottom: 0.7rem;
+}
+
+.chart-section[data-type="gender-comparison"] .stat-value,
+.chart-section[data-type="age-impact"] .stat-value {
+    font-size: 1.1rem;
+}
+
+/* Light mode fixes for personalized tips section */
+[data-theme="light"] .tips-card {
+    background: linear-gradient(135deg, rgba(240, 240, 240, 0.9), rgba(250, 250, 250, 0.9));
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .tip-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .tip-content h3 {
+    color: #333;
+}
+
+[data-theme="light"] .tip-content p {
+    color: #555;
+}
+
+[data-theme="light"] .tips-card h2 {
+    color: #333;
+}
+
+/* Improve light mode styling for gender and age sections */
+[data-theme="light"] .chart-section[data-type="gender-comparison"],
+[data-theme="light"] .chart-section[data-type="age-impact"] {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+[data-theme="light"] .chart-section[data-type="gender-comparison"] .chart-explanation,
+[data-theme="light"] .chart-section[data-type="age-impact"] .chart-explanation {
+    background-color: rgba(250, 250, 250, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    padding: 0.75rem;
+}
+
+[data-theme="light"] .chart-section[data-type="gender-comparison"] h2,
+[data-theme="light"] .chart-section[data-type="age-impact"] h2 {
+    font-size: 1.3rem;
+    color: #333;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    margin-bottom: 0.75rem;
+}
+
+[data-theme="light"] .chart-section[data-type="gender-comparison"] .chart-compact,
+[data-theme="light"] .chart-section[data-type="age-impact"] .chart-compact {
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    height: 210px;
+    padding: 0.75rem;
+}
+
+[data-theme="light"] .chart-section[data-type="gender-comparison"] .stat-conclusion,
+[data-theme="light"] .chart-section[data-type="age-impact"] .stat-conclusion {
+    background-color: rgba(240, 240, 240, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    color: #555;
+}
+
+/* Make charts wider and adjust layout for gender and age sections */
+.dual-content-container {
+    display: grid;
+    grid-template-columns: minmax(250px, 40%) 1fr;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Make gender and age charts wider */
+.chart-section[data-type="gender-comparison"] .dual-content-container,
+.chart-section[data-type="age-impact"] .dual-content-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.chart-section[data-type="gender-comparison"] .chart-compact,
+.chart-section[data-type="age-impact"] .chart-compact {
+    height: 260px;
+    width: 100%;
+}
+
+/* Light mode adjustments for chart sizes */
+[data-theme="light"] .chart-section[data-type="gender-comparison"] .chart-compact,
+[data-theme="light"] .chart-section[data-type="age-impact"] .chart-compact {
+    height: 260px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .chart-section[data-type="gender-comparison"] .dual-content-container,
+    .chart-section[data-type="age-impact"] .dual-content-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Make age chart taller */
+.chart-section[data-type="age-impact"] .chart-compact {
+    height: 350px;
+    width: 100%;
+}
+
+[data-theme="light"] .chart-section[data-type="age-impact"] .chart-compact {
+    height: 350px;
+}
+
+/* Center duration stats cards and make them more prominent */
+.stats-insight-cards {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.stats-insight-card {
+    min-width: 180px;
+    max-width: 220px;
+    flex: 1;
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stats-insight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .stats-insight-card {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .insight-header {
+    background-color: rgba(255, 92, 88, 0.2);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+[data-theme="light"] .insight-body {
+    padding: 1.5rem 1rem;
+}
+
+[data-theme="light"] .insight-value {
+    color: #333;
+    font-size: 2rem;
+}
+
+[data-theme="light"] .insight-footer {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .stats-insight-cards {
+        flex-wrap: wrap;
+    }
+}

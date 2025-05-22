@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calories Burned Prediction</title>
+    <title>FitBurner - Calories Burned Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -30,6 +30,9 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
         <ul class="nav-links">
             <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="/r"><i class="fas fa-fire"></i> Calorie Predictor</a></li>
@@ -61,7 +64,7 @@
                     </div>
                     {% endif %}
                     
-                    <form action="/cp" method="post" class="modern-form">
+                    <form action="/cp" method="post" class="modern-form" id="calorieForm">
                         <div class="form-progress">
                             <div class="progress-step active" data-step="1">
                                 <div class="step-icon"><i class="fas fa-user"></i></div>
@@ -174,7 +177,7 @@
                                 <button type="button" class="btn btn-outline" id="back-to-1">
                                     <i class="fas fa-arrow-left"></i> Back
                                 </button>
-                                <button type="submit" class="btn btn-glow">
+                                <button type="button" id="calculate-btn" class="btn btn-glow">
                                     <i class="fas fa-calculator"></i> Calculate Calories
                                 </button>
                             </div>
@@ -285,7 +288,7 @@
         <div class="footer-content">
             <div class="footer-logo">
                 <i class="fas fa-fire-alt"></i>
-                <span>Fitness Calorie AI</span>
+                <span>FitBurner</span>
             </div>
             <div class="footer-links">
                 <a href="/"><i class="fas fa-home"></i> Home</a>
@@ -302,7 +305,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 Fitness Calorie AI | Powered by AMINE OUCHAJAA</p>
+            <p>© 2025 FitBurner | Powered by AMINE OUCHAJAA</p>
         </div>
     </footer>
 
@@ -325,6 +328,13 @@
                 
                 return age && gender && height && weight;
             }
+
+            function validateSection2() {
+                const heartRate = document.getElementById('Heart_Rate').value;
+                const bodyTemp = document.getElementById('Body_Temp').value;
+                
+                return heartRate && bodyTemp;
+            }
             
             if (nextBtn) {
                 nextBtn.addEventListener('click', function() {
@@ -344,6 +354,63 @@
                     section2.classList.remove('active');
                     section1.classList.add('active');
                     step2.classList.remove('active');
+                });
+            }
+
+            // Handle calculate button click for AJAX submission
+            const calculateBtn = document.getElementById('calculate-btn');
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', function() {
+                    if (!validateSection2()) {
+                        alert('Please fill in all required exercise parameters.');
+                        return;
+                    }
+
+                    // Show loading state
+                    calculateBtn.disabled = true;
+                    calculateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating...';
+                    
+                    // Get form data
+                    const form = document.getElementById('calorieForm');
+                    const formData = new FormData(form);
+                    
+                    // Send AJAX request
+                    fetch('/cp', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        // Parse HTML response to extract the result card
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const resultCard = doc.querySelector('.result-card');
+                        
+                        // Update the result section
+                        const resultContainer = document.querySelector('.column:last-child');
+                        resultContainer.innerHTML = '';
+                        resultContainer.appendChild(resultCard);
+                        
+                        // Restore button state
+                        calculateBtn.disabled = false;
+                        calculateBtn.innerHTML = '<i class="fas fa-calculator"></i> Calculate Calories';
+                        
+                        // Initialize calorie gauge
+                        initCalorieGauge();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('There was a problem calculating your calories. Please try again.');
+                        
+                        // Restore button state
+                        calculateBtn.disabled = false;
+                        calculateBtn.innerHTML = '<i class="fas fa-calculator"></i> Calculate Calories';
+                    });
                 });
             }
             
@@ -379,39 +446,45 @@
                 }
             });
             
-            // Jauge de calories (si résultat présent)
-            const calorieGauge = document.getElementById('calorieGauge');
-            if (calorieGauge) {
-                const value = parseInt(calorieGauge.getAttribute('data-value'));
-                const maxValue = 500; // Valeur maximum pour la jauge
-                
-                // Calculer le pourcentage de remplissage (max 100%)
-                const percentage = Math.min(value / maxValue * 100, 100);
-                
-                // Définir les couleurs de la jauge
-                let color = '#4CAF50'; // Vert par défaut
-                
-                if (value > 300) {
-                    color = '#FF5C58'; // Rouge pour valeurs élevées
-                } else if (value > 150) {
-                    color = '#FF9800'; // Orange pour valeurs moyennes
+            // Function to initialize calorie gauge
+            function initCalorieGauge() {
+                const calorieGauge = document.getElementById('calorieGauge');
+                if (calorieGauge) {
+                    const value = parseInt(calorieGauge.getAttribute('data-value'));
+                    const maxValue = 500; // Valeur maximum pour la jauge
+                    
+                    // Calculer le pourcentage de remplissage (max 100%)
+                    const percentage = Math.min(value / maxValue * 100, 100);
+                    
+                    // Définir les couleurs de la jauge
+                    let color = '#4CAF50'; // Vert par défaut
+                    
+                    if (value > 300) {
+                        color = '#FF5C58'; // Rouge pour valeurs élevées
+                    } else if (value > 150) {
+                        color = '#FF9800'; // Orange pour valeurs moyennes
+                    }
+                    
+                    // Créer la jauge avec un dégradé
+                    calorieGauge.style.background = `conic-gradient(
+                        ${color} ${percentage}%, 
+                        #f0f0f0 ${percentage}%
+                    )`;
+                    
+                    // Ajouter l'animation
+                    setTimeout(() => {
+                        calorieGauge.style.opacity = 1;
+                        calorieGauge.style.transform = 'scale(1)';
+                    }, 300);
                 }
-                
-                // Créer la jauge avec un dégradé
-                calorieGauge.style.background = `conic-gradient(
-                    ${color} ${percentage}%, 
-                    #f0f0f0 ${percentage}%
-                )`;
-                
-                // Ajouter l'animation
-                setTimeout(() => {
-                    calorieGauge.style.opacity = 1;
-                    calorieGauge.style.transform = 'scale(1)';
-                }, 300);
             }
+            
+            // Initialize calorie gauge on page load if present
+            initCalorieGauge();
         });
     </script>
     <!-- Script for Dark Mode -->
     <script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mobile-nav.js') }}"></script>
 </body>
 </html>
