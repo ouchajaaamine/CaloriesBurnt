@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Calories Burnt Prediction</title>
+    <title>About - Fitness Calorie AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -14,83 +14,129 @@
         <ul class="nav-links">
             <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="/r"><i class="fas fa-fire"></i> Calorie Predictor</a></li>
+            <li><a href="/stats"><i class="fas fa-chart-bar"></i> Statistics</a></li>
             <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
         </ul>
+        <!-- Theme Toggler will be added here -->
+        <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </div>
     </nav>
 
     <!-- Main Content -->
     <div class="container">
-        <div class="card">
-            <h1><i class="fas fa-info-circle"></i> About This Project</h1>
-            
-            <div style="margin-top: 2rem;">
-                <h2><i class="fas fa-lightbulb"></i> Project Overview</h2>
-                <p style="margin-top: 1rem; line-height: 1.7;">
-                    The Calorie Burnt Prediction project uses machine learning to accurately predict how many calories an individual will burn during exercise.
-                    The prediction model is trained on a dataset of over 15,000 exercise records that include various personal metrics and corresponding calorie burn data.
-                </p>
+        <div class="about-header">
+            <div class="about-header-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <h1>About Fitness Calorie AI</h1>
+            <p class="about-subtitle">Discover how our artificial intelligence technology accurately predicts calories burned during exercise</p>
+        </div>
+        
+        <div class="about-container">
+            <div class="about-section">
+                <div class="section-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="section-content">
+                    <h2>Project Overview</h2>
+                    <p>
+                        The Fitness Calorie AI project uses machine learning to accurately predict how many calories an individual will burn during exercise.
+                        Our prediction model is trained on a dataset of over 15,000 exercise records that include various personal metrics and corresponding calorie burn data.
+                    </p>
+                </div>
             </div>
             
-            <div style="margin-top: 2rem;">
-                <h2><i class="fas fa-cogs"></i> How It Works</h2>
-                <p style="margin-top: 1rem; line-height: 1.7;">
-                    Our system uses a Linear Regression model trained on exercise data to make predictions. 
-                    The model takes into account several important factors:
-                </p>
-                <ul style="margin-top: 1rem; margin-left: 1.5rem; line-height: 1.7;">
-                    <li><strong>Personal metrics</strong>: Age, gender, height, and weight</li>
-                    <li><strong>Exercise intensity</strong>: Duration, heart rate, and body temperature</li>
-                </ul>
-                <p style="margin-top: 1rem; line-height: 1.7;">
-                    These factors collectively provide a comprehensive picture of an individual's physical condition and exercise intensity,
-                    allowing for accurate calorie burn predictions.
-                </p>
+            <div class="about-section">
+                <div class="section-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="section-content">
+                    <h2>How It Works</h2>
+                    <p>
+                        Our system uses a Linear Regression model trained on exercise data to make predictions.
+                        The model takes into account several important factors:
+                    </p>
+                    <ul class="about-list">
+                        <li><span class="highlight">Personal metrics</span>: Age, gender, height, and weight</li>
+                        <li><span class="highlight">Exercise intensity</span>: Duration, heart rate, and body temperature</li>
+                    </ul>
+                    <p>
+                        These factors collectively provide a comprehensive picture of an individual's physical condition and exercise intensity,
+                        allowing for accurate calorie burn predictions.
+                    </p>
+                </div>
             </div>
             
-            <div style="margin-top: 2rem;">
-                <h2><i class="fas fa-database"></i> Dataset</h2>
-                <p style="margin-top: 1rem; line-height: 1.7;">
-                    The model is trained on a comprehensive dataset containing exercise records with the following features:
-                </p>
-                <ul style="margin-top: 1rem; margin-left: 1.5rem; line-height: 1.7;">
-                    <li>User ID</li>
-                    <li>Gender</li>
-                    <li>Age</li>
-                    <li>Height</li>
-                    <li>Weight</li>
-                    <li>Duration</li>
-                    <li>Heart Rate</li>
-                    <li>Body Temperature</li>
-                    <li>Calories Burned</li>
-                </ul>
+            <div class="about-section">
+                <div class="section-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="section-content">
+                    <h2>Dataset</h2>
+                    <p>
+                        The model is trained on a comprehensive dataset containing exercise records with the following features:
+                    </p>
+                    <div class="feature-columns">
+                        <ul class="about-list">
+                            <li>User ID</li>
+                            <li>Gender</li>
+                            <li>Age</li>
+                            <li>Height</li>
+                            <li>Weight</li>
+                        </ul>
+                        <ul class="about-list">
+                            <li>Duration</li>
+                            <li>Heart Rate</li>
+                            <li>Body Temperature</li>
+                            <li>Calories Burned</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             
-            <div style="margin-top: 2rem;">
-                <h2><i class="fas fa-code"></i> Technologies Used</h2>
-                <div class="stats-grid" style="margin-top: 1rem;">
-                    <div class="stats-card">
-                        <h3>Python</h3>
-                        <p>Core programming language</p>
-                    </div>
-                    <div class="stats-card">
-                        <h3>Flask</h3>
-                        <p>Web application framework</p>
-                    </div>
-                    <div class="stats-card">
-                        <h3>Scikit-learn</h3>
-                        <p>Machine learning library</p>
-                    </div>
-                    <div class="stats-card">
-                        <h3>Pandas</h3>
-                        <p>Data manipulation</p>
-                    </div>
-                    <div class="stats-card">
-                        <h3>NumPy</h3>
-                        <p>Numerical operations</p>
-                    </div>
-                    <div class="stats-card">
-                        <h3>HTML/CSS</h3>
-                        <p>Frontend development</p>
+            <div class="about-section">
+                <div class="section-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="section-content">
+                    <h2>Technologies Used</h2>
+                    <div class="tech-grid">
+                        <div class="tech-card">
+                            <div class="tech-icon"><i class="fab fa-python"></i></div>
+                            <h3>Python</h3>
+                            <p>Core programming language</p>
+                        </div>
+                        <div class="tech-card">
+                            <div class="tech-icon"><i class="fas fa-server"></i></div>
+                            <h3>Flask</h3>
+                            <p>Web application framework</p>
+                        </div>
+                        <div class="tech-card">
+                            <div class="tech-icon"><i class="fas fa-brain"></i></div>
+                            <h3>Scikit-learn</h3>
+                            <p>Machine learning library</p>
+                        </div>
+                        <div class="tech-card">
+                            <div class="tech-icon"><i class="fas fa-table"></i></div>
+                            <h3>Pandas</h3>
+                            <p>Data manipulation</p>
+                        </div>
+                        <div class="tech-card">
+                            <div class="tech-icon"><i class="fas fa-calculator"></i></div>
+                            <h3>NumPy</h3>
+                            <p>Numerical operations</p>
+                        </div>
+                        <div class="tech-card">
+                            <div class="tech-icon"><i class="fas fa-code"></i></div>
+                            <h3>HTML/CSS</h3>
+                            <p>Frontend development</p>
+                        </div>
+                        <div class="tech-card">
+                            <div class="tech-icon"><i class="fab fa-js"></i></div>
+                            <h3>JavaScript</h3>
+                            <p>Interactive features</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,7 +145,31 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2023 Calorie Burnt Prediction | Powered by Machine Learning</p>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-fire-alt"></i>
+                <span>Fitness Calorie AI</span>
+            </div>
+            <div class="footer-links">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/r"><i class="fas fa-calculator"></i> Predictor</a>
+                <a href="/stats"><i class="fas fa-chart-bar"></i> Statistics</a>
+                <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://x.com/AOuchajaa" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/ouchajaaamine" class="social-icon" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/amine.uja/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/ouchajaaamine" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/amine-ouchajaa/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Fitness Calorie AI | Powered by AMINE OUCHAJAA</p>
+        </div>
     </footer>
+
+    <!-- Scripts for Dark Mode -->
+    <script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
 </body>
 </html> 

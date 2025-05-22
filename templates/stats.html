@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - Calories Burned Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/r"><i class="fas fa-fire"></i> Calorie Predictor</a></li>
+            <li><a href="/stats"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+            <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
+        </ul>
+        <!-- Theme Toggler -->
+        <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Header with global statistics -->
+        <div class="stats-header-cards">
+            <div class="stats-header-card">
+                <div class="stats-header-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stats-header-info">
+                    <h3>Average Calories</h3>
+                    <p>{{ avg_calories }}</p>
+                </div>
+            </div>
+            <div class="stats-header-card">
+                <div class="stats-header-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stats-header-info">
+                    <h3>Participants</h3>
+                    <p>{{ total_records }}</p>
+                </div>
+            </div>
+            <div class="stats-header-card">
+                <div class="stats-header-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stats-header-info">
+                    <h3>Max Calories</h3>
+                    <p>{{ max_calories }}</p>
+                </div>
+            </div>
+            <div class="stats-header-card">
+                <div class="stats-header-icon">
+                    <i class="fas fa-weight"></i>
+                </div>
+                <div class="stats-header-info">
+                    <h3>Min Calories</h3>
+                    <p>{{ min_calories }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main analysis -->
+        <div class="card chart-card">
+            <h1><i class="fas fa-chart-bar"></i> Burned Calories Analysis</h1>
+            <p class="subtitle">Data based on {{ total_records }} records</p>
+
+            <!-- Gender comparison -->
+            <div class="chart-section">
+                <h2><i class="fas fa-venus-mars"></i> Gender Comparison</h2>
+                <div class="dual-content-container">
+                    <div class="chart-compact">
+                        <canvas id="genderChart"></canvas>
+                    </div>
+                    <div class="chart-explanation">
+                        <h3>Data Interpretation</h3>
+                        <p>The data shows a significant difference in calorie burning between men and women during physical exercise.</p>
+                        
+                        <div class="key-stat">
+                            <div class="stat-name">Men</div>
+                            <div class="stat-value">{{ male_avg }} calories</div>
+                            <div class="stat-bar" style="--width: 100%"></div>
+                        </div>
+                        
+                        <div class="key-stat">
+                            <div class="stat-name">Women</div>
+                            <div class="stat-value">{{ female_avg }} calories</div>
+                            <div class="stat-bar" style="--width: {{ (female_avg / male_avg * 100)|round|int }}%"></div>
+                        </div>
+                        
+                        <div class="stat-conclusion">
+                            {% if male_avg > female_avg %}
+                            <i class="fas fa-info-circle"></i> Men burn on average <strong>{{ ((male_avg - female_avg) / female_avg * 100)|round|int }}%</strong> more calories than women during the same exercises.
+                            {% else %}
+                            <i class="fas fa-info-circle"></i> Women burn on average <strong>{{ ((female_avg - male_avg) / male_avg * 100)|round|int }}%</strong> more calories than men during the same exercises.
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Age analysis -->
+            <div class="chart-section">
+                <h2><i class="fas fa-birthday-cake"></i> Calories by Age Group</h2>
+                <div class="dual-content-container">
+                    <div class="chart-compact">
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                    <div class="chart-explanation">
+                        <h3>Impact of age on calories burned</h3>
+                        <p>Age is a determining factor in the ability to burn calories. Our data shows clear trends by age group.</p>
+                        
+                        <table class="compact-stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Age</th>
+                                    <th>Calories</th>
+                                    <th>Efficiency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for group, stats in age_stats.items() %}
+                                {% if group != '<20' %}
+                                <tr>
+                                    <td>{{ group }}</td>
+                                    <td>{{ stats.avg_calories }}</td>
+                                    <td>
+                                        <div class="efficiency-indicator" data-level="
+                                            {% if stats.avg_calories > 120 %}high
+                                            {% elif stats.avg_calories > 80 %}medium
+                                            {% else %}low{% endif %}">
+                                            {% if stats.avg_calories > 120 %}High
+                                            {% elif stats.avg_calories > 80 %}Medium
+                                            {% else %}Low{% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                        <div class="stat-conclusion">
+                            <i class="fas fa-lightbulb"></i> The 30-40 age group generally presents the best balance between muscle mass and endurance for calorie burning.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-insights">
+                    <div class="insight-item">
+                        <i class="fas fa-male insight-icon"></i>
+                        <div>
+                            <h3>Men/Women difference by age</h3>
+                            <p>The gap between men and women tends to narrow with age, particularly after 50 years.</p>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <i class="fas fa-heartbeat insight-icon"></i>
+                        <div>
+                            <h3>Heart rate</h3>
+                            <p>Young adults (20-30 years) more easily reach an optimal heart rate for fat burning.</p>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <i class="fas fa-running insight-icon"></i>
+                        <div>
+                            <h3>Exercise intensity</h3>
+                            <p>The 40-50 age group benefits more from high-intensity but short-duration exercises.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Duration analysis -->
+            <div class="chart-section">
+                <h2><i class="fas fa-clock"></i> Impact of Exercise Duration</h2>
+                <div class="dual-content-container">
+                    <div class="chart-compact">
+                        <canvas id="durationChart"></canvas>
+                    </div>
+                    <div class="chart-explanation">
+                        <h3>Exercise duration optimization</h3>
+                        <p>The relationship between exercise duration and calories burned is not always linear. Here's how to optimize your training time.</p>
+                        
+                        <div class="efficiency-comparison">
+                            {% for group, stats in duration_stats.items() %}
+                            <div class="efficiency-block">
+                                <div class="efficiency-title">{{ group }}</div>
+                                <div class="efficiency-value">{{ stats.avg_calories }}</div>
+                                <div class="efficiency-ratio">{{ (stats.avg_calories / stats.count)|round(1) }} cal/min</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="stat-conclusion">
+                            <i class="fas fa-trophy"></i> Exercise sessions of 20-30 minutes offer the best ratio between time invested and calories burned.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-insight-cards">
+                    {% for group, stats in duration_stats.items() %}
+                    <div class="stats-insight-card">
+                        <div class="insight-header">{{ group }}</div>
+                        <div class="insight-body">
+                            <div class="insight-value">{{ stats.avg_calories }}</div>
+                            <div class="insight-label">calories on average</div>
+                        </div>
+                        <div class="insight-footer">
+                            {{ stats.count }} records
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Data-based tips -->
+        <div class="card tips-card">
+            <h2><i class="fas fa-lightbulb"></i> Personalized tips</h2>
+            <div class="tips-container">
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Optimal duration</h3>
+                        <p>Exercises of 20-30 minutes show the best calories/time ratio. Prioritize sessions of this duration to maximize efficiency.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Target heart rate zone</h3>
+                        <p>Maintain a heart rate between 100-115 BPM to maximize fat burning. Use a heart rate monitor to stay in this zone.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Consistency</h3>
+                        <p>Regular 15-20 minute sessions are more effective than a single long session per week. Aim for 3-4 sessions per week for optimal results.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <i class="fas fa-temperature-high"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Body temperature</h3>
+                        <p>A slight increase in body temperature (up to 39°C) is associated with better calorie burning. Include a 5-minute warm-up.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-fire-alt"></i>
+                <span>Fitness Calorie AI</span>
+            </div>
+            <div class="footer-links">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/r"><i class="fas fa-calculator"></i> Predictor</a>
+                <a href="/stats"><i class="fas fa-chart-bar"></i> Statistics</a>
+                <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://x.com/AOuchajaa" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/ouchajaaamine" class="social-icon" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/amine.uja/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/ouchajaaamine" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/amine-ouchajaa/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Fitness Calorie AI | Powered by AMINE OUCHAJAA</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+    <script>
+        // Define chart data as global variables
+        var MALE_AVG = {{ male_avg }};
+        var FEMALE_AVG = {{ female_avg }};
+        
+        var AGE_DATA = [
+        {% for group, stats in age_stats.items() %}
+            {% if group != '<20' %}
+            {
+                group: "{{ group }}",
+                value: {{ stats.avg_calories }}
+            }{% if not loop.last %},{% endif %}
+            {% endif %}
+        {% endfor %}
+        ];
+        
+        var DURATION_DATA = [
+        {% for group, stats in duration_stats.items() %}
+            {
+                group: "{{ group }}",
+                value: {{ stats.avg_calories }}
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+        ];
+        
+        // Initialize charts when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts(MALE_AVG, FEMALE_AVG, AGE_DATA, DURATION_DATA);
+        });
+    </script>
+</body>
+</html> 

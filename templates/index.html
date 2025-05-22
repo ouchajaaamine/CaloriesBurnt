@@ -14,54 +14,215 @@
         <ul class="nav-links">
             <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="/r"><i class="fas fa-fire"></i> Calorie Predictor</a></li>
+            <li><a href="/stats"><i class="fas fa-chart-bar"></i> Statistics</a></li>
             <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
         </ul>
+        <!-- Theme Toggler -->
+        <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="particles-container" id="particles-js"></div>
         <div class="hero-content">
-            <h1>Exercise Calorie Burn <span style="color: var(--primary);">Predictor</span></h1>
-            <p>
-                Use machine learning to accurately predict how many calories you'll burn during your workout.
-                Our advanced algorithm takes into account your personal metrics and exercise intensity to give you
-                the most accurate prediction possible.
-            </p>
-            <div>
-                <a href="/r" class="btn"><i class="fas fa-calculator"></i> Calculate Now</a>
-                <a href="/about" class="btn btn-outline"><i class="fas fa-info-circle"></i> Learn More</a>
+            <div class="logo-animated">
+                <i class="fas fa-fire-alt"></i>
             </div>
+            <h1>Fitness <span class="gradient-text">Calorie</span> AI</h1>
+            <p class="hero-description">
+                Discover how many calories you burn during exercise with our advanced AI algorithm.
+                Get accurate predictions based on your personal data and optimize your workout routine.
+            </p>
+            <div class="hero-cta">
+                <a href="/r" class="btn btn-glow"><i class="fas fa-calculator"></i> Calculate Now</a>
+                <a href="/stats" class="btn btn-outline"><i class="fas fa-chart-line"></i> View Statistics</a>
+            </div>
+            <div class="hero-features">
+                <div class="feature-tag"><i class="fas fa-bolt"></i> Fast</div>
+                <div class="feature-tag"><i class="fas fa-lock"></i> Secure</div>
+                <div class="feature-tag"><i class="fas fa-chart-pie"></i> Analytical</div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator" style="margin-top: 30px;">
+            <a href="#features">
+                <span class="mouse">
+                    <span class="mouse-wheel"></span>
+                </span>
+                <span class="scroll-text">Discover</span>
+            </a>
         </div>
     </section>
 
     <!-- Features Section -->
-    <div class="container">
-        <div class="card">
-            <h2><i class="fas fa-star"></i> Key Features</h2>
-            <div class="stats-grid">
-                <div class="stats-card">
-                    <h3><i class="fas fa-bolt"></i> Fast Results</h3>
-                    <p>Instant predictions using our trained model</p>
+    <div class="container" id="features">
+        <div class="section-header">
+            <h2 class="section-title">Why Use Our Predictor</h2>
+            <p class="section-subtitle">Discover the features that make the difference</p>
+        </div>
+
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
                 </div>
-                <div class="stats-card">
-                    <h3><i class="fas fa-brain"></i> Smart Algorithm</h3>
-                    <p>Uses advanced machine learning techniques</p>
+                <h3>Artificial Intelligence</h3>
+                <p>Our machine learning algorithm is trained on thousands of exercise data points for accurate predictions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-shield"></i>
                 </div>
-                <div class="stats-card">
-                    <h3><i class="fas fa-user"></i> Personalized</h3>
-                    <p>Considers your individual body metrics</p>
+                <h3>Personalization</h3>
+                <p>Incorporates your specific physiological data for results tailored to your unique profile.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
                 </div>
-                <div class="stats-card">
-                    <h3><i class="fas fa-lock"></i> Secure</h3>
-                    <p>All data stays on your device</p>
+                <h3>Advanced Analytics</h3>
+                <p>Visualize detailed statistics by age, gender, and exercise type to better understand your metabolism.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
                 </div>
+                <h3>Performance</h3>
+                <p>Instant results and optimized interface for a smooth and responsive user experience.</p>
+            </div>
+        </div>
+
+        <div class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Enter your data</h3>
+                        <p>Fill in your personal information such as age, weight, height, and gender.</p>
+                    </div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Add exercise parameters</h3>
+                        <p>Indicate the exercise duration, your heart rate, and body temperature.</p>
+                    </div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Get your results</h3>
+                        <p>Our AI analyzes your data and provides you with an accurate prediction of calories burned.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-content" style="flex: 1; text-align: center; padding: 3rem;">
+                <h2>Ready to Start?</h2>
+                <p>Calculate how many calories you burn during exercise now and optimize your workout routine.</p>
+                <a href="/r" class="btn btn-large btn-glow" style="margin-top: 1.5rem;"><i class="fas fa-fire"></i> Calculate My Calories</a>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>© 2023 Calorie Burnt Prediction | Powered by Machine Learning</p>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-fire-alt"></i>
+                <span>Fitness Calorie AI</span>
+            </div>
+            <div class="footer-links">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/r"><i class="fas fa-calculator"></i> Predictor</a>
+                <a href="/stats"><i class="fas fa-chart-bar"></i> Statistics</a>
+                <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://x.com/AOuchajaa" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/ouchajaaamine" class="social-icon" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/amine.uja/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/ouchajaaamine" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/amine-ouchajaa/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Fitness Calorie AI | Powered by AMINE OUCHAJAA</p>
+        </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialisation des particules
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS("particles-js", {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: "#FF5C58" },
+                        shape: { type: "circle" },
+                        opacity: { value: 0.5, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: "#FF9F68",
+                            opacity: 0.4,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: "none",
+                            random: true,
+                            straight: false,
+                            out_mode: "out",
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: { enable: true, mode: "grab" },
+                            onclick: { enable: true, mode: "push" },
+                            resize: true
+                        },
+                        modes: {
+                            grab: { distance: 140, line_linked: { opacity: 1 } },
+                            push: { particles_nb: 4 }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+
+            // Animation de l'icône dans le logo
+            const logoIcon = document.querySelector('.logo-animated i');
+            setInterval(() => {
+                logoIcon.classList.add('pulse');
+                setTimeout(() => {
+                    logoIcon.classList.remove('pulse');
+                }, 1000);
+            }, 3000);
+
+            // Effet de défilement fluide
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

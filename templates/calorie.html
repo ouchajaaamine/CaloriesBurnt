@@ -3,10 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calories Burnt Prediction</title>
+    <title>Calories Burned Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .two-column-layout {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 992px) {
+            .two-column-layout {
+                flex-direction: column;
+            }
+        }
+        
+        .column {
+            flex: 1;
+            min-width: 0;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -14,126 +33,385 @@
         <ul class="nav-links">
             <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="/r"><i class="fas fa-fire"></i> Calorie Predictor</a></li>
+            <li><a href="/stats"><i class="fas fa-chart-bar"></i> Statistics</a></li>
             <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
         </ul>
+        <!-- Theme Toggler -->
+        <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </div>
     </nav>
 
     <!-- Main Content -->
     <div class="container">
-        <div class="card">
-            <h1><i class="fas fa-fire"></i> Calorie Burnt Prediction</h1>
-            <p>Enter your details below to predict how many calories you'll burn during exercise</p>
-            
-            <form action="/cp" method="post">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="Age"><i class="fas fa-birthday-cake"></i> Age</label>
-                        <input type="number" class="form-control" id="Age" name="Age" placeholder="Enter your age" min="10" max="99" required>
+        <div class="form-header">
+            <div class="form-header-icon">
+                <i class="fas fa-fire-alt"></i>
+            </div>
+            <h1>Calories Burned Prediction</h1>
+            <p class="form-subtitle">Enter your information to accurately calculate your calorie expenditure during exercise</p>
+        </div>
+        
+        <div class="two-column-layout">
+            <div class="column">
+                <div class="form-card">
+                    {% if error %}
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i> {{ error }}
                     </div>
+                    {% endif %}
                     
-                    <div class="form-group">
-                        <label for="Gender"><i class="fas fa-venus-mars"></i> Gender</label>
-                        <select class="form-control" id="Gender" name="Gender" required>
-                            <option value="">Select your gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
+                    <form action="/cp" method="post" class="modern-form">
+                        <div class="form-progress">
+                            <div class="progress-step active" data-step="1">
+                                <div class="step-icon"><i class="fas fa-user"></i></div>
+                                <div class="step-label">Profile</div>
+                            </div>
+                            <div class="progress-connector"></div>
+                            <div class="progress-step" data-step="2">
+                                <div class="step-icon"><i class="fas fa-dumbbell"></i></div>
+                                <div class="step-label">Exercise</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section active" id="section-1">
+                            <h3><i class="fas fa-user-circle"></i> Personal Information</h3>
+                            
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="Age"><i class="fas fa-birthday-cake"></i> Age</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="Age" name="Age" placeholder="Between 10 and 99" min="10" max="99" required>
+                                        <span class="input-highlight"></span>
+                                    </div>
+                                    <span class="input-help">Your age in years</span>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label for="Gender"><i class="fas fa-venus-mars"></i> Gender</label>
+                                    <div class="select-wrapper">
+                                        <select id="Gender" name="Gender" required>
+                                            <option value="" disabled selected>Select</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="Height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="Height" name="Height" placeholder="Between 100 and 250" min="100" max="250" required>
+                                        <span class="input-highlight"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label for="Weight"><i class="fas fa-weight"></i> Weight (kg)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="Weight" name="Weight" placeholder="Between 30 and 200" min="30" max="200" required>
+                                        <span class="input-highlight"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-nav">
+                                <button type="button" class="btn btn-next" id="next-to-2">
+                                    Next <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section" id="section-2">
+                            <h3><i class="fas fa-heartbeat"></i> Exercise Parameters</h3>
+                            
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="Duration"><i class="fas fa-clock"></i> Duration (minutes)</label>
+                                    <div class="range-wrapper">
+                                        <input type="range" id="Duration-range" min="1" max="180" value="30" class="slider">
+                                        <div class="range-value">
+                                            <span id="duration-value">30</span> min
+                                        </div>
+                                        <input type="hidden" id="Duration" name="Duration" value="30">
+                                    </div>
+                                    <div class="range-labels">
+                                        <span>1</span>
+                                        <span>60</span>
+                                        <span>180</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="Heart_Rate"><i class="fas fa-heartbeat"></i> Heart Rate (BPM)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="Heart_Rate" name="Heart_Rate" placeholder="Between 60 and 200" min="60" max="200" required>
+                                        <span class="input-highlight"></span>
+                                    </div>
+                                    <span class="input-tip">
+                                        <i class="fas fa-info-circle"></i> Typical BPM during exercise: 110-150
+                                    </span>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label for="Body_Temp"><i class="fas fa-thermometer-half"></i> Body Temperature (°C)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="Body_Temp" name="Body_Temp" placeholder="Between 36 and 42" min="36" max="42" step="0.1" required>
+                                        <span class="input-highlight"></span>
+                                    </div>
+                                    <span class="input-tip">
+                                        <i class="fas fa-info-circle"></i> Normal at rest: ~37°C
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-nav">
+                                <button type="button" class="btn btn-outline" id="back-to-1">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="submit" class="btn btn-glow">
+                                    <i class="fas fa-calculator"></i> Calculate Calories
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="Height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
-                        <input type="number" class="form-control" id="Height" name="Height" placeholder="Enter your height" min="100" max="250" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="Weight"><i class="fas fa-weight"></i> Weight (kg)</label>
-                        <input type="number" class="form-control" id="Weight" name="Weight" placeholder="Enter your weight" min="30" max="200" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="Duration"><i class="fas fa-clock"></i> Duration (minutes)</label>
-                        <input type="number" class="form-control" id="Duration" name="Duration" placeholder="Exercise duration" min="1" max="180" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="Heart_Rate"><i class="fas fa-heartbeat"></i> Heart Rate (BPM)</label>
-                        <input type="number" class="form-control" id="Heart_Rate" name="Heart_Rate" placeholder="Average heart rate" min="60" max="200" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="Body_Temp"><i class="fas fa-thermometer-half"></i> Body Temp (°C)</label>
-                        <input type="number" class="form-control" id="Body_Temp" name="Body_Temp" placeholder="Body temperature" min="36" max="42" step="0.1" required>
-                    </div>
-                </div>
-                
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <button type="submit" class="btn"><i class="fas fa-calculator"></i> Calculate Calories</button>
-                    <button type="reset" class="btn btn-outline"><i class="fas fa-redo"></i> Reset</button>
-                </div>
-            </form>
-            
-            {% if data %}
-            <div class="result-section">
-                <h2><i class="fas fa-fire-alt"></i> Predicted Calories Burnt</h2>
-                <div class="result-value">{{ data }} calories</div>
-                <p>Based on your input parameters</p>
             </div>
             
-            <div class="stats-grid">
-                <div class="stats-card">
-                    <h3>Age</h3>
-                    <p>{{ age }} years</p>
+            <div class="column">
+                {% if data %}
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="result-icon">
+                            <i class="fas fa-fire-alt"></i>
+                        </div>
+                        <h2>Prediction Result</h2>
+                    </div>
+                    
+                    <div class="result-value-container">
+                        <div class="result-gauge-container">
+                            <div class="result-gauge" id="calorieGauge" data-value="{{ data }}"></div>
+                            <div class="result-gauge-label">Calories burned</div>
+                        </div>
+                        <div class="result-metrics">
+                            <div class="result-main-value">{{ data }}</div>
+                            <div class="result-unit">calories</div>
+                            <div class="result-comparison">
+                                {% if data > avg_calories %}
+                                <span class="tag-positive"><i class="fas fa-arrow-up"></i> {{ ((data - avg_calories) / avg_calories * 100)|round|int }}% above average</span>
+                                {% else %}
+                                <span class="tag-neutral"><i class="fas fa-arrow-down"></i> {{ ((avg_calories - data) / avg_calories * 100)|round|int }}% below average</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-details">
+                        <h3>Prediction Details</h3>
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-birthday-cake"></i></div>
+                                <div class="detail-label">Age</div>
+                                <div class="detail-value">{{ age }} years</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-venus-mars"></i></div>
+                                <div class="detail-label">Gender</div>
+                                <div class="detail-value">{{ gender }}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-ruler-vertical"></i></div>
+                                <div class="detail-label">Height</div>
+                                <div class="detail-value">{{ height }} cm</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-weight"></i></div>
+                                <div class="detail-label">Weight</div>
+                                <div class="detail-value">{{ weight }} kg</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">{{ duration }} min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-heartbeat"></i></div>
+                                <div class="detail-label">Heart Rate</div>
+                                <div class="detail-value">{{ heart_rate }} BPM</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-thermometer-half"></i></div>
+                                <div class="detail-label">Body Temp.</div>
+                                <div class="detail-value">{{ body_temp }}°C</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-users"></i></div>
+                                <div class="detail-label">Avg. {{ gender }}s</div>
+                                <div class="detail-value">{{ avg_calories }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <a href="/r" class="btn btn-outline"><i class="fas fa-redo"></i> New Calculation</a>
+                        <a href="/stats" class="btn"><i class="fas fa-chart-bar"></i> View Statistics</a>
+                    </div>
                 </div>
-                <div class="stats-card">
-                    <h3>Gender</h3>
-                    <p>{{ gender }}</p>
+                {% else %}
+                <div class="result-card calculate-prompt">
+                    <div style="font-size: 5rem; margin-bottom: 1rem;">
+                        <i class="fas fa-calculator" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                    </div>
+                    <h2>Ready to Calculate?</h2>
+                    <p>Fill in the form on the left and click "Calculate Calories" to see your results here.</p>
+                    <div class="feature-tags">
+                        <div class="feature-tag"><i class="fas fa-bolt"></i> Fast</div>
+                        <div class="feature-tag"><i class="fas fa-lock"></i> Secure</div>
+                        <div class="feature-tag"><i class="fas fa-chart-pie"></i> Analytical</div>
+                    </div>
                 </div>
-                <div class="stats-card">
-                    <h3>Height</h3>
-                    <p>{{ height }} cm</p>
-                </div>
-                <div class="stats-card">
-                    <h3>Weight</h3>
-                    <p>{{ weight }} kg</p>
-                </div>
-                <div class="stats-card">
-                    <h3>Duration</h3>
-                    <p>{{ duration }} min</p>
-                </div>
-                <div class="stats-card">
-                    <h3>Heart Rate</h3>
-                    <p>{{ heart_rate }} BPM</p>
-                </div>
-                <div class="stats-card">
-                    <h3>Body Temperature</h3>
-                    <p>{{ body_temp }}°C</p>
-                </div>
-                <div class="stats-card">
-                    <h3>Avg. for {{ gender }}s</h3>
-                    <p>{{ avg_calories }} cal</p>
-                </div>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>© 2023 Calorie Burnt Prediction | Powered by Machine Learning</p>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-fire-alt"></i>
+                <span>Fitness Calorie AI</span>
+            </div>
+            <div class="footer-links">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/r"><i class="fas fa-calculator"></i> Predictor</a>
+                <a href="/stats"><i class="fas fa-chart-bar"></i> Statistics</a>
+                <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://x.com/AOuchajaa" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/ouchajaaamine" class="social-icon" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/amine.uja/" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/ouchajaaamine" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/amine-ouchajaa/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Fitness Calorie AI | Powered by AMINE OUCHAJAA</p>
+        </div>
     </footer>
 
     <script>
-        // Add animation to the result section when it appears
         document.addEventListener('DOMContentLoaded', function() {
-            const resultSection = document.querySelector('.result-section');
-            if (resultSection) {
-                resultSection.classList.add('fadeIn');
+            // Gestion des étapes du formulaire
+            const nextBtn = document.getElementById('next-to-2');
+            const backBtn = document.getElementById('back-to-1');
+            const section1 = document.getElementById('section-1');
+            const section2 = document.getElementById('section-2');
+            const step1 = document.querySelector('[data-step="1"]');
+            const step2 = document.querySelector('[data-step="2"]');
+            
+            // Validation du formulaire
+            function validateSection1() {
+                const age = document.getElementById('Age').value;
+                const gender = document.getElementById('Gender').value;
+                const height = document.getElementById('Height').value;
+                const weight = document.getElementById('Weight').value;
+                
+                return age && gender && height && weight;
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    if (validateSection1()) {
+                        section1.classList.remove('active');
+                        section2.classList.add('active');
+                        step1.classList.add('completed');
+                        step2.classList.add('active');
+                    } else {
+                        alert('Please fill in all fields in this section.');
+                    }
+                });
+            }
+            
+            if (backBtn) {
+                backBtn.addEventListener('click', function() {
+                    section2.classList.remove('active');
+                    section1.classList.add('active');
+                    step2.classList.remove('active');
+                });
+            }
+            
+            // Gestion du slider
+            const durationRange = document.getElementById('Duration-range');
+            const durationValue = document.getElementById('duration-value');
+            const durationInput = document.getElementById('Duration');
+            
+            if (durationRange) {
+                durationRange.addEventListener('input', function() {
+                    durationValue.textContent = this.value;
+                    durationInput.value = this.value;
+                });
+            }
+            
+            // Animation des inputs
+            const inputs = document.querySelectorAll('.input-wrapper input');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('active');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (this.value === '') {
+                        this.parentElement.classList.remove('active');
+                    }
+                });
+                
+                // Initialiser l'état actif si l'input a déjà une valeur
+                if (input.value !== '') {
+                    input.parentElement.classList.add('active');
+                }
+            });
+            
+            // Jauge de calories (si résultat présent)
+            const calorieGauge = document.getElementById('calorieGauge');
+            if (calorieGauge) {
+                const value = parseInt(calorieGauge.getAttribute('data-value'));
+                const maxValue = 500; // Valeur maximum pour la jauge
+                
+                // Calculer le pourcentage de remplissage (max 100%)
+                const percentage = Math.min(value / maxValue * 100, 100);
+                
+                // Définir les couleurs de la jauge
+                let color = '#4CAF50'; // Vert par défaut
+                
+                if (value > 300) {
+                    color = '#FF5C58'; // Rouge pour valeurs élevées
+                } else if (value > 150) {
+                    color = '#FF9800'; // Orange pour valeurs moyennes
+                }
+                
+                // Créer la jauge avec un dégradé
+                calorieGauge.style.background = `conic-gradient(
+                    ${color} ${percentage}%, 
+                    #f0f0f0 ${percentage}%
+                )`;
+                
+                // Ajouter l'animation
+                setTimeout(() => {
+                    calorieGauge.style.opacity = 1;
+                    calorieGauge.style.transform = 'scale(1)';
+                }, 300);
             }
         });
     </script>
+    <!-- Script for Dark Mode -->
+    <script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
 </body>
 </html>
