@@ -1,27 +1,36 @@
 from flask import *
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import StandardScaler
+import joblib
+import os
 import re
 
 app = Flask(__name__, static_folder='static')
 
-# Charger les datasets une seule fois au démarrage
+# Check if the model exists, if not inform the user to run train_model.py first
+model_path = 'models/calories_model.pkl'
+if not os.path.exists(model_path):
+    print("ERROR: Pre-trained model not found!")
+    print("Please run 'python train_model.py' before starting the server.")
+    print("This will train the model once and save it for future use.")
+else:
+    print("Loading pre-trained model...")
+    
+# Load the pre-trained model (will only be accessed if it exists)
+def load_model():
+    try:
+        return joblib.load(model_path)
+    except Exception as e:
+        print(f"Error loading model: {str(e)}")
+        return None
+
+# Load the model if it exists
+model = load_model() if os.path.exists(model_path) else None
+
+# Load datasets for statistics only (not for model training)
 exercise_df = pd.read_csv("exercise.csv")
 calories_df = pd.read_csv("calories.csv")
-
-# Fusion des datasets sur User_ID
 df = pd.merge(exercise_df, calories_df, on='User_ID')
-
-# Préparation des features et target
-X = df[['Age', 'Gender', 'Height', 'Weight', 'Duration', 'Heart_Rate', 'Body_Temp']]
-X['Gender'] = X['Gender'].map({'male': 1, 'female': 0})
-y = df['Calories']
-
-# Création et entrainement du modèle une seule fois
-model = LinearRegression()
-model.fit(X, y)
 
 @app.route('/')
 def index():
@@ -104,6 +113,11 @@ def caloriesburntpredict():
     error_message = None
     
     try:
+        # Check if model is loaded
+        if model is None:
+            error_message = "Model not loaded. Please run train_model.py first."
+            return render_template("calorie.html", error=error_message)
+            
         # Input validation
         age = request.form.get("Age")
         gender = request.form.get("Gender")
@@ -177,5 +191,8 @@ def caloriesburntpredict():
         return render_template("calorie.html", error=error_message)
 
 if __name__ == '__main__':
-    # Ce bloc de code exécute l'application Flask
+    if model is None:
+        print("WARNING: Running without trained model!")
+        print("Please run 'python train_model.py' before starting the server.")
+    # Run the Flask application
     app.run(debug=True)

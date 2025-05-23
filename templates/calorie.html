@@ -360,7 +360,9 @@
             // Handle calculate button click for AJAX submission
             const calculateBtn = document.getElementById('calculate-btn');
             if (calculateBtn) {
-                calculateBtn.addEventListener('click', function() {
+                calculateBtn.addEventListener('click', function(e) {
+                    console.log('Calculate button clicked');
+                    
                     if (!validateSection2()) {
                         alert('Please fill in all required exercise parameters.');
                         return;
@@ -374,38 +376,44 @@
                     const form = document.getElementById('calorieForm');
                     const formData = new FormData(form);
                     
+                    // Log form data for debugging
+                    for (let pair of formData.entries()) {
+                        console.log(pair[0] + ': ' + pair[1]);
+                    }
+                    
                     // Send AJAX request
                     fetch('/cp', {
                         method: 'POST',
                         body: formData
                     })
                     .then(response => {
+                        console.log('Response status:', response.status);
                         if (!response.ok) {
-                            throw new Error('Network response was not ok');
+                            throw new Error('Network response was not ok: ' + response.status);
                         }
                         return response.text();
                     })
                     .then(html => {
-                        // Parse HTML response to extract the result card
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        const resultCard = doc.querySelector('.result-card');
+                        console.log('Response received, updating DOM');
                         
-                        // Update the result section
-                        const resultContainer = document.querySelector('.column:last-child');
-                        resultContainer.innerHTML = '';
-                        resultContainer.appendChild(resultCard);
+                        // Replace the entire page content
+                        document.open();
+                        document.write(html);
+                        document.close();
                         
-                        // Restore button state
-                        calculateBtn.disabled = false;
-                        calculateBtn.innerHTML = '<i class="fas fa-calculator"></i> Calculate Calories';
-                        
-                        // Initialize calorie gauge
-                        initCalorieGauge();
+                        // Re-initialize scripts
+                        const scripts = document.querySelectorAll('script');
+                        scripts.forEach(script => {
+                            if (script.src) {
+                                const newScript = document.createElement('script');
+                                newScript.src = script.src;
+                                document.body.appendChild(newScript);
+                            }
+                        });
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('There was a problem calculating your calories. Please try again.');
+                        alert('There was a problem calculating your calories: ' + error.message);
                         
                         // Restore button state
                         calculateBtn.disabled = false;
